@@ -9,22 +9,25 @@ import random
 def app():
     # ==========================Fetching Posters through the TMDB API======================================#
     def fetch_poster(movie_id):
+
         url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(
             movie_id)
         data = requests.get(url)
-        data = data.json()
+        # Checking if the server is fulfilling the request
+        # status code 200 --> Successful OK!
+        # status code 304 --> Response had invalid or missing data
 
-        full_path = "https://image.shutterstock.com/z/stock-vector-unavailable-silver-shiny-emblem-scales-pattern" \
-                    "-vector-illustration-detailed-1676250781.jpg"
-        if len(data) < 4:
-            return full_path
+        if data.status_code != 304:
+            # Parsing the response(data) to dictionary
+            poster_path = data.json()['poster_path']
         else:
-            poster_path = data['poster_path']  # [key : value]
-            if poster_path is None:
-                full_path = "https://image.shutterstock.com/z/stock-vector-unavailable-silver-shiny-emblem-scales" \
-                            "-pattern-vector-illustration-detailed-1676250781.jpg"
-            else:
-                full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
+            poster_path = None
+
+        if poster_path is None:
+            full_path = "https://image.shutterstock.com/z/stock-vector-unavailable-silver-shiny-emblem-scales" \
+                        "-pattern-vector-illustration-detailed-1676250781.jpg"
+        else:
+            full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
 
         return full_path
 
