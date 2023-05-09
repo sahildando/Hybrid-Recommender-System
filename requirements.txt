@@ -2,4 +2,4 @@
 requests
 scikit-learn
 plotly
-pandas==0.23.3
+pandas<2.0.0
