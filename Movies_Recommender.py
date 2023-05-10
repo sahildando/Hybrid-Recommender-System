@@ -27,7 +27,7 @@ def app():
             full_path = "https://image.shutterstock.com/z/stock-vector-unavailable-silver-shiny-emblem-scales" \
                         "-pattern-vector-illustration-detailed-1676250781.jpg"
         else:
-            full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
+            full_path = "https://image.tmdb.org/t/p/w500" + poster_path
 
         return full_path
 
